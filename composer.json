@@ -1,0 +1,29 @@
+{
+    "name": "sebermann/typed-enum",
+    "description": "An enum library for PHP 7.1+ with support for strict typing",
+    "keywords": ["enum"],
+    "type": "library",
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "TypedEnum\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TypedEnum\\Tests\\": "tests/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steffen Ebermann",
+            "email": "steffen@ebermann.org"
+        }
+    ]
+}
