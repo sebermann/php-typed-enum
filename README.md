@@ -8,7 +8,9 @@ This is an enum library for PHP 7.1+ with support for strict typing.
 ## Definition
 
 Define a class extending either `TypedEnum\IntegerEnum` or `TypedEnum\StringEnum`
-with each allowed value as a class constant (uppercase with underscore separators).
+with each allowed value as a class constant. The constant name must conform to
+[PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
+and be all upper case with underscore separators.
 
 ```php
 final class Color extends \TypedEnum\IntegerEnum
@@ -40,7 +42,8 @@ protected static $constants = [
 ];
 ```
 
-All methods treat the constant names or *keys* as case-insensitive.
+All methods treat key arguments as case-insensitive, so you can pass `'YELLOW'`
+as well as `'yellow'`.
 
 ## Static Usage
 
@@ -48,30 +51,35 @@ For basic usage you can use the class constants and the `getKey()` and `getValue
 static methods.
 
 ```php
-$car->color = Color::PURPLE;
+$color = Color::PURPLE;
 ```
 
 ```php
-if ($car->color === Color::PURPLE) {
-    return $car;
+if ($color === Color::PURPLE) {
+    return true;
 }
 ```
 
 ```php
-$colorValue = Color::getValue('purple');  // Returns 2
-$colorKey = Color::getKey($colorValue);  // Returns 'PURPLE'
+$purpleValue = Color::getValue('purple');  // Returns 2
+$purpleKey = Color::getKey($purpleValue);  // Returns 'PURPLE'
 ```
 
 ## Dynamic Usage
 
-Creating enum instances allows the usage of enum classes as type declarations and
-prevents mix-up errors when different enums share keys or values.
+Creating enum instances allows the usage of enum classes as type declarations.
+
+```php
+public function setColor(Color $color)
+{
+    $this->color = $color;
+}
+```
+
+It can also prevent mix-up errors when different enums share keys or values.
 
 ```php
 Color::ORANGE === Fruit::ORANGE;  // Could erroneously be true
-```
-
-```php
 Color::makeOrange()->sameAs(Fruit::makeOrange());  // Reliably false
 ```
 
