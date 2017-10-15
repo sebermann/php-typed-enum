@@ -30,7 +30,7 @@ final class Country extends \TypedEnum\StringEnum
 }
 ```
 
-These constants will be accessed using Reflection and subsequently be cached in a
+These constants will be accessed using reflection and subsequently be cached in a
 static property. If you prefer you can define them yourself by adding a `$constants`
 property.
 
