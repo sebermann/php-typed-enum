@@ -57,7 +57,7 @@ abstract class Enum
         if (self::startsWith($name, 'make')) {
             $key = self::toKeyCase(self::stringAfter($name, 'make'));
             self::throwIfKeyInvalid($key);
-            return static::make(static::keyToValue($key));
+            return new static(static::keyToValue($key));
         }
 
         throw new BadMethodCallException('Unknown method: ' . $name);
