@@ -126,9 +126,14 @@ abstract class Enum
         return false;
     }
 
+    public static function hasKey(string $key): bool
+    {
+        return isset(self::getConstants()[mb_strtoupper($key)]);
+    }
+
     protected static function throwIfKeyInvalid(string $key): void
     {
-        if (!isset(self::getConstants()[$key])) {
+        if (!self::hasKey($key)) {
             throw new UnexpectedValueException('Unknown enum key: ' . $key);
         }
     }
