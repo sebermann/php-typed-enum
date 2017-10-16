@@ -34,6 +34,11 @@ abstract class StringEnum extends Enum implements JsonSerializable
         return $this->value;
     }
 
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
     public function is(string ...$values): bool
     {
         foreach ($values as $value) {
@@ -45,13 +50,14 @@ abstract class StringEnum extends Enum implements JsonSerializable
         return false;
     }
 
-    protected static function keyToValue(string $key): string
+    public static function keyToValue(string $key): string
     {
+        $key = mb_strtoupper($key);
         self::throwIfKeyInvalid($key);
         return self::getConstants()[$key];
     }
 
-    protected static function valueToKey(string $value): string
+    public static function valueToKey(string $value): string
     {
         self::throwIfValueInvalid($value);
         return array_search($value, self::getConstants());

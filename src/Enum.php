@@ -23,14 +23,6 @@ abstract class Enum
 
     public function __call(string $name, array $arguments)
     {
-        if ($name === 'getValue') {
-            return $this->value;
-        }
-
-        if ($name === 'getKey') {
-            return static::valueToKey($this->value);
-        }
-
         if (self::startsWith($name, 'is')) {
             $key = self::toKeyCase(self::stringAfter($name, 'is'));
             self::throwIfKeyInvalid($key);
@@ -42,18 +34,6 @@ abstract class Enum
 
     public static function __callStatic(string $name, array $arguments)
     {
-        if (isset($arguments[0])) {
-
-            if ($name === 'getValue') {
-                return static::keyToValue(mb_strtoupper($arguments[0]));
-            }
-
-            if ($name === 'getKey') {
-                return static::valueToKey($arguments[0]);
-            }
-
-        }
-
         if (self::startsWith($name, 'make')) {
             $key = self::toKeyCase(self::stringAfter($name, 'make'));
             self::throwIfKeyInvalid($key);
@@ -66,6 +46,11 @@ abstract class Enum
     public function __toString(): string
     {
         return $this->value;
+    }
+
+    public function getKey(): string
+    {
+        return static::valueToKey($this->value);
     }
 
     public static function getConstants(): array
