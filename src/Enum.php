@@ -82,6 +82,16 @@ abstract class Enum
         return static::$constantsCache[static::class];
     }
 
+    public static function getKeys(): array
+    {
+        return array_keys(self::getConstants());
+    }
+
+    public static function getValues(): array
+    {
+        return array_values(self::getConstants());
+    }
+
     public static function withKey(string $key): Enum
     {
         $key = mb_strtoupper($key);
