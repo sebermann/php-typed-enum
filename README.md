@@ -47,23 +47,33 @@ as well as `'yellow'`.
 
 ## Static Usage
 
-For basic usage you can use the class constants and the `getKey()` and `getValue()`
-static methods.
+You can use the class constants to avoid magic numbers.
 
 ```php
-$color = Color::PURPLE;
-```
-
-```php
-if ($color === Color::PURPLE) {
-    return true;
+if ($color === Color::YELLOW) {
+    $color = Color::PURPLE;
 }
 ```
 
+The methods `keyToValue()` and `valueToKey()` allow you to convert between keys
+and values.
+
 ```php
-$purpleValue = Color::getValue('purple');  // Returns 2
-$purpleKey = Color::getKey($purpleValue);  // Returns 'PURPLE'
+$value = Color::keyToValue('purple');  // Returns 2
+$key = Color::valueToKey($value);  // Returns 'PURPLE'
 ```
+
+If a key or value is not defined an `UnexpectedValueException` will be thrown.
+The `hasKey()` and `hasValue()` methods can be used to check for existence.
+
+```php
+Color::hasKey('yellow');  // Returns true
+Color::hasValue(4);  // Returns false
+```
+
+The `getConstants()` method will return a map of all the allowed key-value pairs.
+`getKeys()` and `getValues()` will return a list of allowed keys and allowed values
+repsectively.
 
 ## Dynamic Usage
 
@@ -132,6 +142,8 @@ if ($car->color->sameAs($preferences->color)) {
 
 Both `is()` and `sameAs()` are variadic, so you can pass multiple arguments and
 only one must be a match.
+
+If you need the key or value you can use the `getKey()` and `getValue()` methods.
 
 ### Serialization
 
