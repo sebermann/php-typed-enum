@@ -4,9 +4,9 @@ namespace TypedEnum\Tests\Enums;
 
 final class Fruit extends \TypedEnum\IntegerEnum
 {
-    const BANANA = 1;
-    const CHERRY = 2;
-    const ORANGE = 3;
+    public const BANANA = 1;
+    public const CHERRY = 2;
+    public const ORANGE = 3;
 
     protected static $constants = [
         'BANANA' => self::BANANA,

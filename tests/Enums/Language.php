@@ -4,9 +4,9 @@ namespace TypedEnum\Tests\Enums;
 
 final class Language extends \TypedEnum\StringEnum
 {
-    const HEBREW = 'heb';
-    const FRENCH = 'fre';
-    const POLISH = 'pol';
+    public const HEBREW = 'heb';
+    public const FRENCH = 'fre';
+    public const POLISH = 'pol';
 
     protected static $constants = [
         'HEBREW' => self::HEBREW,

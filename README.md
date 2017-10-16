@@ -15,18 +15,18 @@ and be all upper case with underscore separators.
 ```php
 final class Color extends \TypedEnum\IntegerEnum
 {
-    const YELLOW = 1;
-    const PURPLE = 2;
-    const ORANGE = 3;
+    public const YELLOW = 1;
+    public const PURPLE = 2;
+    public const ORANGE = 3;
 }
 ```
 
 ```php
 final class Country extends \TypedEnum\StringEnum
 {
-    const ISRAEL = 'isr';
-    const FRANCE = 'fra';
-    const POLAND = 'pol';
+    public const ISRAEL = 'isr';
+    public const FRANCE = 'fra';
+    public const POLAND = 'pol';
 }
 ```
 
