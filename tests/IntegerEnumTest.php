@@ -53,6 +53,44 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expectedConstants, Color::getConstants());
     }
 
+    public function testGetKeys()
+    {
+        $expectedKeys = [
+            'YELLOW',
+            'PURPLE',
+            'ORANGE'
+        ];
+
+        $this->assertSame($expectedKeys, Color::getKeys());
+    }
+
+    public function testGetValues()
+    {
+        $expectedValues = [
+            1,
+            2,
+            3
+        ];
+
+        $this->assertSame($expectedValues, Color::getValues());
+    }
+
+    public function testHasKey()
+    {
+        $this->assertTrue(Color::hasKey('YELLOW'));
+        $this->assertTrue(Color::hasKey('PURPLE'));
+        $this->assertTrue(Color::hasKey('ORANGE'));
+        $this->assertFalse(Color::hasKey('SILVER'));
+    }
+
+    public function testHasValue()
+    {
+        $this->assertTrue(Color::hasValue(1));
+        $this->assertTrue(Color::hasValue(2));
+        $this->assertTrue(Color::hasValue(3));
+        $this->assertFalse(Color::hasValue(4));
+    }
+
     public function testConstructor()
     {
         $color = new Color(Color::PURPLE);
@@ -250,37 +288,37 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Color::makeOrange()->sameAs(Fruit::makeOrange()));
     }
 
-    public function testStaticGetValue()
+    public function testKeyToValue()
     {
-        $this->assertSame(1, Color::getValue('yellow'));
-        $this->assertNotSame(1, Color::getValue('purple'));
-        $this->assertNotSame(1, Color::getValue('orange'));
+        $this->assertSame(1, Color::keyToValue('yellow'));
+        $this->assertNotSame(1, Color::keyToValue('purple'));
+        $this->assertNotSame(1, Color::keyToValue('orange'));
 
-        $this->assertNotSame(2, Color::getValue('yellow'));
-        $this->assertSame(2, Color::getValue('purple'));
-        $this->assertNotSame(2, Color::getValue('orange'));
+        $this->assertNotSame(2, Color::keyToValue('yellow'));
+        $this->assertSame(2, Color::keyToValue('purple'));
+        $this->assertNotSame(2, Color::keyToValue('orange'));
 
-        $this->assertNotSame(3, Color::getValue('yellow'));
-        $this->assertNotSame(3, Color::getValue('purple'));
-        $this->assertSame(3, Color::getValue('orange'));
+        $this->assertNotSame(3, Color::keyToValue('yellow'));
+        $this->assertNotSame(3, Color::keyToValue('purple'));
+        $this->assertSame(3, Color::keyToValue('orange'));
     }
 
-    public function testStaticGetKey()
+    public function testValueToKey()
     {
-        $this->assertSame('YELLOW', Color::getKey(Color::YELLOW));
-        $this->assertNotSame('YELLOW', Color::getKey(Color::PURPLE));
-        $this->assertNotSame('YELLOW', Color::getKey(Color::ORANGE));
+        $this->assertSame('YELLOW', Color::valueToKey(Color::YELLOW));
+        $this->assertNotSame('YELLOW', Color::valueToKey(Color::PURPLE));
+        $this->assertNotSame('YELLOW', Color::valueToKey(Color::ORANGE));
 
-        $this->assertNotSame('PURPLE', Color::getKey(Color::YELLOW));
-        $this->assertSame('PURPLE', Color::getKey(Color::PURPLE));
-        $this->assertNotSame('PURPLE', Color::getKey(Color::ORANGE));
+        $this->assertNotSame('PURPLE', Color::valueToKey(Color::YELLOW));
+        $this->assertSame('PURPLE', Color::valueToKey(Color::PURPLE));
+        $this->assertNotSame('PURPLE', Color::valueToKey(Color::ORANGE));
 
-        $this->assertNotSame('ORANGE', Color::getKey(Color::YELLOW));
-        $this->assertNotSame('ORANGE', Color::getKey(Color::PURPLE));
-        $this->assertSame('ORANGE', Color::getKey(Color::ORANGE));
+        $this->assertNotSame('ORANGE', Color::valueToKey(Color::YELLOW));
+        $this->assertNotSame('ORANGE', Color::valueToKey(Color::PURPLE));
+        $this->assertSame('ORANGE', Color::valueToKey(Color::ORANGE));
     }
 
-    public function testDynamicGetValue()
+    public function testGetValue()
     {
         $this->assertSame(1, Color::makeYellow()->getValue());
         $this->assertNotSame(1, Color::makePurple()->getValue());
@@ -295,7 +333,7 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(3, Color::makeOrange()->getValue());
     }
 
-    public function testDynamicGetKey()
+    public function testGetKey()
     {
         $this->assertSame('YELLOW', Color::makeYellow()->getKey());
         $this->assertNotSame('YELLOW', Color::makePurple()->getKey());

@@ -53,6 +53,44 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expectedConstants, Country::getConstants());
     }
 
+    public function testGetKeys()
+    {
+        $expectedKeys = [
+            'ISRAEL',
+            'FRANCE',
+            'POLAND'
+        ];
+
+        $this->assertSame($expectedKeys, Country::getKeys());
+    }
+
+    public function testGetValues()
+    {
+        $expectedValues = [
+            'isr',
+            'fra',
+            'pol'
+        ];
+
+        $this->assertSame($expectedValues, Country::getValues());
+    }
+
+    public function testHasKey()
+    {
+        $this->assertTrue(Country::hasKey('ISRAEL'));
+        $this->assertTrue(Country::hasKey('FRANCE'));
+        $this->assertTrue(Country::hasKey('POLAND'));
+        $this->assertFalse(Country::hasKey('CANADA'));
+    }
+
+    public function testHasValue()
+    {
+        $this->assertTrue(Country::hasValue('isr'));
+        $this->assertTrue(Country::hasValue('fra'));
+        $this->assertTrue(Country::hasValue('pol'));
+        $this->assertFalse(Country::hasValue('can'));
+    }
+
     public function testConstructor()
     {
         $country = new Country(Country::FRANCE);
@@ -233,37 +271,37 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Country::makePoland()->sameAs(Language::makePolish()));
     }
 
-    public function testStaticGetValue()
+    public function testKeyToValue()
     {
-        $this->assertSame('isr', Country::getValue('israel'));
-        $this->assertNotSame('isr', Country::getValue('france'));
-        $this->assertNotSame('isr', Country::getValue('poland'));
+        $this->assertSame('isr', Country::keyToValue('israel'));
+        $this->assertNotSame('isr', Country::keyToValue('france'));
+        $this->assertNotSame('isr', Country::keyToValue('poland'));
 
-        $this->assertNotSame('fra', Country::getValue('israel'));
-        $this->assertSame('fra', Country::getValue('france'));
-        $this->assertNotSame('fra', Country::getValue('poland'));
+        $this->assertNotSame('fra', Country::keyToValue('israel'));
+        $this->assertSame('fra', Country::keyToValue('france'));
+        $this->assertNotSame('fra', Country::keyToValue('poland'));
 
-        $this->assertNotSame('pol', Country::getValue('israel'));
-        $this->assertNotSame('pol', Country::getValue('france'));
-        $this->assertSame('pol', Country::getValue('poland'));
+        $this->assertNotSame('pol', Country::keyToValue('israel'));
+        $this->assertNotSame('pol', Country::keyToValue('france'));
+        $this->assertSame('pol', Country::keyToValue('poland'));
     }
 
-    public function testStaticGetKey()
+    public function testValueToKey()
     {
-        $this->assertSame('ISRAEL', Country::getKey(Country::ISRAEL));
-        $this->assertNotSame('ISRAEL', Country::getKey(Country::FRANCE));
-        $this->assertNotSame('ISRAEL', Country::getKey(Country::POLAND));
+        $this->assertSame('ISRAEL', Country::valueToKey(Country::ISRAEL));
+        $this->assertNotSame('ISRAEL', Country::valueToKey(Country::FRANCE));
+        $this->assertNotSame('ISRAEL', Country::valueToKey(Country::POLAND));
 
-        $this->assertNotSame('FRANCE', Country::getKey(Country::ISRAEL));
-        $this->assertSame('FRANCE', Country::getKey(Country::FRANCE));
-        $this->assertNotSame('FRANCE', Country::getKey(Country::POLAND));
+        $this->assertNotSame('FRANCE', Country::valueToKey(Country::ISRAEL));
+        $this->assertSame('FRANCE', Country::valueToKey(Country::FRANCE));
+        $this->assertNotSame('FRANCE', Country::valueToKey(Country::POLAND));
 
-        $this->assertNotSame('POLAND', Country::getKey(Country::ISRAEL));
-        $this->assertNotSame('POLAND', Country::getKey(Country::FRANCE));
-        $this->assertSame('POLAND', Country::getKey(Country::POLAND));
+        $this->assertNotSame('POLAND', Country::valueToKey(Country::ISRAEL));
+        $this->assertNotSame('POLAND', Country::valueToKey(Country::FRANCE));
+        $this->assertSame('POLAND', Country::valueToKey(Country::POLAND));
     }
 
-    public function testDynamicGetValue()
+    public function testGetValue()
     {
         $this->assertSame('isr', Country::makeIsrael()->getValue());
         $this->assertNotSame('isr', Country::makeFrance()->getValue());
@@ -278,7 +316,7 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('pol', Country::makePoland()->getValue());
     }
 
-    public function testDynamicGetKey()
+    public function testGetKey()
     {
         $this->assertSame('ISRAEL', Country::makeIsrael()->getKey());
         $this->assertNotSame('ISRAEL', Country::makeFrance()->getKey());
