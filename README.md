@@ -80,7 +80,7 @@ repsectively.
 Creating enum instances allows the usage of enum classes as type declarations.
 
 ```php
-public function setColor(Color $color)
+public function setColor(Color $color): void
 {
     $this->color = $color;
 }
@@ -107,7 +107,7 @@ If you only have a key you have to either convert it using `getValue()` or use t
 `withKey()` method.
 
 ```php
-$color = Color::make(Color::getValue('yellow'));
+$color = Color::make(Color::keyToValue('yellow'));
 $color = Color::withKey('yellow');
 ```
 
