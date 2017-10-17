@@ -286,6 +286,14 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('pol', Country::keyToValue('poland'));
     }
 
+    public function testKeyToValueException()
+    {
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Unknown enum key: CANADA');
+
+        Country::keyToValue('canada');
+    }
+
     public function testValueToKey()
     {
         $this->assertSame('ISRAEL', Country::valueToKey(Country::ISRAEL));
@@ -299,6 +307,14 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertNotSame('POLAND', Country::valueToKey(Country::ISRAEL));
         $this->assertNotSame('POLAND', Country::valueToKey(Country::FRANCE));
         $this->assertSame('POLAND', Country::valueToKey(Country::POLAND));
+    }
+
+    public function testValueToKeyException()
+    {
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Unknown enum value: can');
+
+        Country::valueToKey('can');
     }
 
     public function testGetValue()

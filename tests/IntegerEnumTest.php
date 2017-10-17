@@ -303,6 +303,14 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(3, Color::keyToValue('orange'));
     }
 
+    public function testKeyToValueException()
+    {
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Unknown enum key: SILVER');
+
+        Color::keyToValue('silver');
+    }
+
     public function testValueToKey()
     {
         $this->assertSame('YELLOW', Color::valueToKey(Color::YELLOW));
@@ -316,6 +324,14 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertNotSame('ORANGE', Color::valueToKey(Color::YELLOW));
         $this->assertNotSame('ORANGE', Color::valueToKey(Color::PURPLE));
         $this->assertSame('ORANGE', Color::valueToKey(Color::ORANGE));
+    }
+
+    public function testValueToKeyException()
+    {
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Unknown enum value: 4');
+
+        Color::valueToKey(4);
     }
 
     public function testGetValue()
