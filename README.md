@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/sebermann/php-typed-enum.svg?branch=master)](https://travis-ci.org/sebermann/php-typed-enum)
 [![Coverage Status](https://coveralls.io/repos/github/sebermann/php-typed-enum/badge.svg?branch=master)](https://coveralls.io/github/sebermann/php-typed-enum?branch=master)
 
-This is an enum library for PHP 7.1+ with support for strict typing.
+This is an enum library for PHP 7.1+ with support for strict typing. It makes use
+of scalar type declarations throughout and offers type-specific enum base classes.
 
 ## Definition
 
