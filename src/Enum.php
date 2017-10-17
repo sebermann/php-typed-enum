@@ -79,8 +79,6 @@ abstract class Enum
 
     public static function withKey(string $key): Enum
     {
-        $key = mb_strtoupper($key);
-        self::throwIfKeyInvalid($key);
         return new static(static::keyToValue($key));
     }
 
