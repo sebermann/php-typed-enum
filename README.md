@@ -103,8 +103,8 @@ $color = Color::make(Color::YELLOW);
 $color = Color::makeYellow();
 ```
 
-If you only have a key you have to either convert it using `getValue()` or use the
-`withKey()` method.
+If you only have a key you have to either convert it using `keyToValue()` or use
+the `withKey()` method.
 
 ```php
 $color = Color::make(Color::keyToValue('yellow'));
