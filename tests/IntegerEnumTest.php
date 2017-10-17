@@ -5,6 +5,7 @@ namespace TypedEnum\Tests;
 
 use BadMethodCallException;
 use UnexpectedValueException;
+use TypeError;
 
 use TypedEnum\Tests\Enums\Color;
 use TypedEnum\Tests\Enums\Fruit;
@@ -83,12 +84,26 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Color::hasKey('SILVER'));
     }
 
+    public function testHasKeyTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::hasKey(null);
+    }
+
     public function testHasValue()
     {
         $this->assertTrue(Color::hasValue(1));
         $this->assertTrue(Color::hasValue(2));
         $this->assertTrue(Color::hasValue(3));
         $this->assertFalse(Color::hasValue(4));
+    }
+
+    public function testHasValueTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::hasValue(null);
     }
 
     public function testConstructor()
@@ -108,6 +123,13 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         new Color(4);
     }
 
+    public function testConstructorTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        new Color(null);
+    }
+
     public function testMake()
     {
         $color = Color::make(Color::PURPLE);
@@ -125,6 +147,13 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         Color::make(4);
     }
 
+    public function testMakeTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::make(null);
+    }
+
     public function testWithKey()
     {
         $color = Color::withKey('purple');
@@ -140,6 +169,13 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Unknown enum key: SILVER');
 
         Color::withKey('silver');
+    }
+
+    public function testWithKeyTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::withKey(null);
     }
 
     public function testMagicMake()
@@ -230,6 +266,13 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Color::make(Color::ORANGE)->is(Color::ORANGE));
     }
 
+    public function testIsTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::make(Color::YELLOW)->is(null);
+    }
+
     public function testVariadicIs()
     {
         $color = Color::make(Color::YELLOW);
@@ -267,6 +310,13 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Color::makeOrange()->sameAs(Color::makeYellow()));
         $this->assertFalse(Color::makeOrange()->sameAs(Color::makePurple()));
         $this->assertTrue(Color::makeOrange()->sameAs(Color::makeOrange()));
+    }
+
+    public function testSameAsTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::makeYellow()->sameAs(null);
     }
 
     public function testVariadicSameAs()
@@ -311,6 +361,13 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         Color::keyToValue('silver');
     }
 
+    public function testKeyToValueTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::keyToValue(null);
+    }
+
     public function testValueToKey()
     {
         $this->assertSame('YELLOW', Color::valueToKey(Color::YELLOW));
@@ -332,6 +389,13 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Unknown enum value: 4');
 
         Color::valueToKey(4);
+    }
+
+    public function testValueToKeyTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Color::valueToKey(null);
     }
 
     public function testGetValue()

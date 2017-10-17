@@ -5,6 +5,7 @@ namespace TypedEnum\Tests;
 
 use BadMethodCallException;
 use UnexpectedValueException;
+use TypeError;
 
 use TypedEnum\Tests\Enums\Country;
 use TypedEnum\Tests\Enums\Language;
@@ -83,12 +84,26 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Country::hasKey('CANADA'));
     }
 
+    public function testHasKeyTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::hasKey(null);
+    }
+
     public function testHasValue()
     {
         $this->assertTrue(Country::hasValue('isr'));
         $this->assertTrue(Country::hasValue('fra'));
         $this->assertTrue(Country::hasValue('pol'));
         $this->assertFalse(Country::hasValue('can'));
+    }
+
+    public function testHasValueTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::hasValue(null);
     }
 
     public function testConstructor()
@@ -108,6 +123,13 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         new Country('can');
     }
 
+    public function testConstructorTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        new Country(null);
+    }
+
     public function testMake()
     {
         $country = Country::make(Country::FRANCE);
@@ -125,6 +147,13 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         Country::make('can');
     }
 
+    public function testMakeTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::make(null);
+    }
+
     public function testWithKey()
     {
         $country = Country::withKey('france');
@@ -140,6 +169,13 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Unknown enum key: CANADA');
 
         Country::withKey('canada');
+    }
+
+    public function testWithKeyTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::withKey(null);
     }
 
     public function testMagicMake()
@@ -213,6 +249,13 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Country::make(Country::POLAND)->is(Country::POLAND));
     }
 
+    public function testIsTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::make(Country::ISRAEL)->is(null);
+    }
+
     public function testVariadicIs()
     {
         $country = Country::make(Country::ISRAEL);
@@ -250,6 +293,13 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Country::makePoland()->sameAs(Country::makeIsrael()));
         $this->assertFalse(Country::makePoland()->sameAs(Country::makeFrance()));
         $this->assertTrue(Country::makePoland()->sameAs(Country::makePoland()));
+    }
+
+    public function testSameAsTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::makeIsrael()->sameAs(null);
     }
 
     public function testVariadicSameAs()
@@ -294,6 +344,13 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         Country::keyToValue('canada');
     }
 
+    public function testKeyToValueTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::keyToValue(null);
+    }
+
     public function testValueToKey()
     {
         $this->assertSame('ISRAEL', Country::valueToKey(Country::ISRAEL));
@@ -315,6 +372,13 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('Unknown enum value: can');
 
         Country::valueToKey('can');
+    }
+
+    public function testValueToKeyTypeError()
+    {
+        $this->expectException(TypeError::class);
+
+        Country::valueToKey(null);
     }
 
     public function testGetValue()
