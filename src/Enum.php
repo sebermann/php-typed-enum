@@ -77,7 +77,7 @@ abstract class Enum
         return array_values(self::getConstants());
     }
 
-    public static function withKey(string $key): Enum
+    public static function fromKey(string $key): Enum
     {
         return new static(static::keyToValue($key));
     }

@@ -154,28 +154,28 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         Color::make(null);
     }
 
-    public function testWithKey()
+    public function testFromKey()
     {
-        $color = Color::withKey('purple');
+        $color = Color::fromKey('purple');
 
         $this->assertInstanceOf(Color::class, $color);
         $this->assertSame(2, $color->getValue());
         $this->assertSame('PURPLE', $color->getKey());
     }
 
-    public function testWithKeyException()
+    public function testFromKeyException()
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('Unknown enum key: SILVER');
 
-        Color::withKey('silver');
+        Color::fromKey('silver');
     }
 
-    public function testWithKeyTypeError()
+    public function testFromKeyTypeError()
     {
         $this->expectException(TypeError::class);
 
-        Color::withKey(null);
+        Color::fromKey(null);
     }
 
     public function testMagicMake()

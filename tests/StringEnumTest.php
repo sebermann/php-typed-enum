@@ -154,28 +154,28 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         Country::make(null);
     }
 
-    public function testWithKey()
+    public function testFromKey()
     {
-        $country = Country::withKey('france');
+        $country = Country::fromKey('france');
 
         $this->assertInstanceOf(Country::class, $country);
         $this->assertSame('fra', $country->getValue());
         $this->assertSame('FRANCE', $country->getKey());
     }
 
-    public function testWithKeyException()
+    public function testFromKeyException()
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('Unknown enum key: CANADA');
 
-        Country::withKey('canada');
+        Country::fromKey('canada');
     }
 
-    public function testWithKeyTypeError()
+    public function testFromKeyTypeError()
     {
         $this->expectException(TypeError::class);
 
-        Country::withKey(null);
+        Country::fromKey(null);
     }
 
     public function testMagicMake()

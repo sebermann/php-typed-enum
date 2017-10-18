@@ -105,11 +105,11 @@ $color = Color::makeYellow();
 ```
 
 If you only have a key you have to either convert it using `keyToValue()` or use
-the `withKey()` method.
+the `fromKey()` method.
 
 ```php
 $color = Color::make(Color::keyToValue('yellow'));
-$color = Color::withKey('yellow');
+$color = Color::fromKey('yellow');
 ```
 
 If the input could either be a key or a value you can use the `parse()` method.
