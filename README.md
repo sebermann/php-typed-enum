@@ -64,17 +64,17 @@ $value = Color::keyToValue('purple');  // Returns 2
 $key = Color::valueToKey($value);  // Returns 'PURPLE'
 ```
 
-If a key or value is not defined an `UnexpectedValueException` will be thrown.
-The `hasKey()` and `hasValue()` methods can be used to check for existence.
+If a value or key is not defined an `UnexpectedValueException` will be thrown.
+The `has()` and `hasKey()` methods can be used to check for existence.
 
 ```php
+Color::has(4);  // Returns false
 Color::hasKey('yellow');  // Returns true
-Color::hasValue(4);  // Returns false
 ```
 
 The `getConstants()` method will return a map of all the allowed key-value pairs.
 `getKeys()` and `getValues()` will return a list of allowed keys and allowed values
-repsectively.
+respectively.
 
 ## Dynamic Usage
 
@@ -91,7 +91,7 @@ It can also prevent mix-up errors when different enums share keys or values.
 
 ```php
 Color::ORANGE === Fruit::ORANGE;  // Could erroneously be true
-Color::makeOrange()->sameAs(Fruit::makeOrange());  // Reliably false
+Color::makeOrange()->equals(Fruit::makeOrange());  // Reliably false
 ```
 
 ### Creation
@@ -133,15 +133,15 @@ $color->is(Color::YELLOW);
 $color->isYellow();
 ```
 
-Comparisons with other enum instances are done using the `sameAs()` method.
+Comparisons with other enum instances are done using the `equals()` method.
 
 ```php
-if ($car->color->sameAs($preferences->color)) {
+if ($car->color->equals($preferences->color)) {
     return $car;
 }
 ```
 
-Both `is()` and `sameAs()` are variadic, so you can pass multiple arguments and
+Both `is()` and `equals()` are variadic, so you can pass multiple arguments and
 only one must be a match.
 
 If you need the key or value you can use the `getKey()` and `getValue()` methods.
