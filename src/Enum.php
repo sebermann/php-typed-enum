@@ -25,7 +25,6 @@ abstract class Enum
     {
         if (self::startsWith($name, 'is')) {
             $key = self::toKeyCase(self::stringAfter($name, 'is'));
-            self::throwIfKeyInvalid($key);
             return $this->is(static::keyToValue($key));
         }
 
@@ -36,7 +35,6 @@ abstract class Enum
     {
         if (self::startsWith($name, 'make')) {
             $key = self::toKeyCase(self::stringAfter($name, 'make'));
-            self::throwIfKeyInvalid($key);
             return new static(static::keyToValue($key));
         }
 
