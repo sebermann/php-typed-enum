@@ -91,19 +91,19 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         Country::hasKey(null);
     }
 
-    public function testHasValue()
+    public function testHas()
     {
-        $this->assertTrue(Country::hasValue('isr'));
-        $this->assertTrue(Country::hasValue('fra'));
-        $this->assertTrue(Country::hasValue('pol'));
-        $this->assertFalse(Country::hasValue('can'));
+        $this->assertTrue(Country::has('isr'));
+        $this->assertTrue(Country::has('fra'));
+        $this->assertTrue(Country::has('pol'));
+        $this->assertFalse(Country::has('can'));
     }
 
-    public function testHasValueTypeError()
+    public function testHasTypeError()
     {
         $this->expectException(TypeError::class);
 
-        Country::hasValue(null);
+        Country::has(null);
     }
 
     public function testConstructor()
@@ -280,29 +280,29 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Country::makePoland()->isPoland());
     }
 
-    public function testSameAs()
+    public function testEquals()
     {
-        $this->assertTrue(Country::makeIsrael()->sameAs(Country::makeIsrael()));
-        $this->assertFalse(Country::makeIsrael()->sameAs(Country::makeFrance()));
-        $this->assertFalse(Country::makeIsrael()->sameAs(Country::makePoland()));
+        $this->assertTrue(Country::makeIsrael()->equals(Country::makeIsrael()));
+        $this->assertFalse(Country::makeIsrael()->equals(Country::makeFrance()));
+        $this->assertFalse(Country::makeIsrael()->equals(Country::makePoland()));
 
-        $this->assertFalse(Country::makeFrance()->sameAs(Country::makeIsrael()));
-        $this->assertTrue(Country::makeFrance()->sameAs(Country::makeFrance()));
-        $this->assertFalse(Country::makeFrance()->sameAs(Country::makePoland()));
+        $this->assertFalse(Country::makeFrance()->equals(Country::makeIsrael()));
+        $this->assertTrue(Country::makeFrance()->equals(Country::makeFrance()));
+        $this->assertFalse(Country::makeFrance()->equals(Country::makePoland()));
 
-        $this->assertFalse(Country::makePoland()->sameAs(Country::makeIsrael()));
-        $this->assertFalse(Country::makePoland()->sameAs(Country::makeFrance()));
-        $this->assertTrue(Country::makePoland()->sameAs(Country::makePoland()));
+        $this->assertFalse(Country::makePoland()->equals(Country::makeIsrael()));
+        $this->assertFalse(Country::makePoland()->equals(Country::makeFrance()));
+        $this->assertTrue(Country::makePoland()->equals(Country::makePoland()));
     }
 
-    public function testSameAsTypeError()
+    public function testEqualsTypeError()
     {
         $this->expectException(TypeError::class);
 
-        Country::makeIsrael()->sameAs(null);
+        Country::makeIsrael()->equals(null);
     }
 
-    public function testVariadicSameAs()
+    public function testVariadicEquals()
     {
         $country = Country::make(Country::ISRAEL);
 
@@ -310,15 +310,15 @@ final class StringEnumTest extends \PHPUnit\Framework\TestCase
         $france = Country::makeFrance();
         $israel = Country::makeIsrael();
 
-        $this->assertTrue($country->sameAs($poland, $france, $israel));
-        $this->assertTrue($country->sameAs($france, $israel));
-        $this->assertFalse($country->sameAs($poland, $france));
+        $this->assertTrue($country->equals($poland, $france, $israel));
+        $this->assertTrue($country->equals($france, $israel));
+        $this->assertFalse($country->equals($poland, $france));
     }
 
-    public function testSameAsFailSafety()
+    public function testEqualsFailSafety()
     {
         $this->assertTrue(Country::POLAND === Language::POLISH);
-        $this->assertFalse(Country::makePoland()->sameAs(Language::makePolish()));
+        $this->assertFalse(Country::makePoland()->equals(Language::makePolish()));
     }
 
     public function testKeyToValue()

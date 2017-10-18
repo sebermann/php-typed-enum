@@ -63,14 +63,14 @@ abstract class StringEnum extends Enum implements JsonSerializable
         return array_search($value, self::getConstants());
     }
 
-    public static function hasValue(string $value): bool
+    public static function has(string $value): bool
     {
         return in_array($value, self::getConstants(), true);
     }
 
     protected static function throwIfValueInvalid(string $value): void
     {
-        if (!self::hasValue($value)) {
+        if (!self::has($value)) {
             throw new UnexpectedValueException('Unknown enum value: ' . $value);
         }
     }

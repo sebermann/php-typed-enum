@@ -63,14 +63,14 @@ abstract class IntegerEnum extends Enum implements JsonSerializable
         return array_search($value, self::getConstants());
     }
 
-    public static function hasValue(int $value): bool
+    public static function has(int $value): bool
     {
         return in_array($value, self::getConstants(), true);
     }
 
     protected static function throwIfValueInvalid(int $value): void
     {
-        if (!self::hasValue($value)) {
+        if (!self::has($value)) {
             throw new UnexpectedValueException('Unknown enum value: ' . $value);
         }
     }

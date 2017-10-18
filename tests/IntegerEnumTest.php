@@ -91,19 +91,19 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         Color::hasKey(null);
     }
 
-    public function testHasValue()
+    public function testHas()
     {
-        $this->assertTrue(Color::hasValue(1));
-        $this->assertTrue(Color::hasValue(2));
-        $this->assertTrue(Color::hasValue(3));
-        $this->assertFalse(Color::hasValue(4));
+        $this->assertTrue(Color::has(1));
+        $this->assertTrue(Color::has(2));
+        $this->assertTrue(Color::has(3));
+        $this->assertFalse(Color::has(4));
     }
 
-    public function testHasValueTypeError()
+    public function testHasTypeError()
     {
         $this->expectException(TypeError::class);
 
-        Color::hasValue(null);
+        Color::has(null);
     }
 
     public function testConstructor()
@@ -297,29 +297,29 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Color::makeOrange()->isOrange());
     }
 
-    public function testSameAs()
+    public function testEquals()
     {
-        $this->assertTrue(Color::makeYellow()->sameAs(Color::makeYellow()));
-        $this->assertFalse(Color::makeYellow()->sameAs(Color::makePurple()));
-        $this->assertFalse(Color::makeYellow()->sameAs(Color::makeOrange()));
+        $this->assertTrue(Color::makeYellow()->equals(Color::makeYellow()));
+        $this->assertFalse(Color::makeYellow()->equals(Color::makePurple()));
+        $this->assertFalse(Color::makeYellow()->equals(Color::makeOrange()));
 
-        $this->assertFalse(Color::makePurple()->sameAs(Color::makeYellow()));
-        $this->assertTrue(Color::makePurple()->sameAs(Color::makePurple()));
-        $this->assertFalse(Color::makePurple()->sameAs(Color::makeOrange()));
+        $this->assertFalse(Color::makePurple()->equals(Color::makeYellow()));
+        $this->assertTrue(Color::makePurple()->equals(Color::makePurple()));
+        $this->assertFalse(Color::makePurple()->equals(Color::makeOrange()));
 
-        $this->assertFalse(Color::makeOrange()->sameAs(Color::makeYellow()));
-        $this->assertFalse(Color::makeOrange()->sameAs(Color::makePurple()));
-        $this->assertTrue(Color::makeOrange()->sameAs(Color::makeOrange()));
+        $this->assertFalse(Color::makeOrange()->equals(Color::makeYellow()));
+        $this->assertFalse(Color::makeOrange()->equals(Color::makePurple()));
+        $this->assertTrue(Color::makeOrange()->equals(Color::makeOrange()));
     }
 
-    public function testSameAsTypeError()
+    public function testEqualsTypeError()
     {
         $this->expectException(TypeError::class);
 
-        Color::makeYellow()->sameAs(null);
+        Color::makeYellow()->equals(null);
     }
 
-    public function testVariadicSameAs()
+    public function testVariadicEquals()
     {
         $color = Color::make(Color::YELLOW);
 
@@ -327,15 +327,15 @@ final class IntegerEnumTest extends \PHPUnit\Framework\TestCase
         $purple = Color::makePurple();
         $yellow = Color::makeYellow();
 
-        $this->assertTrue($color->sameAs($orange, $purple, $yellow));
-        $this->assertTrue($color->sameAs($purple, $yellow));
-        $this->assertFalse($color->sameAs($orange, $purple));
+        $this->assertTrue($color->equals($orange, $purple, $yellow));
+        $this->assertTrue($color->equals($purple, $yellow));
+        $this->assertFalse($color->equals($orange, $purple));
     }
 
-    public function testSameAsFailSafety()
+    public function testEqualsFailSafety()
     {
         $this->assertTrue(Color::ORANGE === Fruit::ORANGE);
-        $this->assertFalse(Color::makeOrange()->sameAs(Fruit::makeOrange()));
+        $this->assertFalse(Color::makeOrange()->equals(Fruit::makeOrange()));
     }
 
     public function testKeyToValue()

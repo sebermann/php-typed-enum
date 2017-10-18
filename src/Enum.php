@@ -108,7 +108,7 @@ abstract class Enum
         );
     }
 
-    public function sameAs(Enum ...$enums): bool
+    public function equals(Enum ...$enums): bool
     {
         foreach ($enums as $enum) {
             if ($this == $enum) {
